@@ -34,6 +34,7 @@ import { PaginationPipe } from './pipes/pagination/pagination.pipe';
 import { MatListModule } from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MatDividerModule } from '@angular/material/divider';
     DishRatingComponent,
     RatingsListComponent,
     PaginationComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

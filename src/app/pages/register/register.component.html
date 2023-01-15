@@ -1,0 +1,22 @@
+<div class="page-wrapper">
+<form class="form" #registerForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+    <mat-form-field class="field">
+        <mat-label class="bold">Email:</mat-label>
+        <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field class="field">
+        <mat-label class="bold">Password:</mat-label>
+        <input matInput formControlName="password" type="password" />
+    </mat-form-field>
+
+    <mat-form-field class="field">
+        <mat-label class="bold">Repeat password:</mat-label>
+        <input matInput formControlName="repeatPassword" type="password" />
+    </mat-form-field>
+
+    <button class="field" mat-raised-button type="submit" [disabled]="!registerForm.form.valid">
+        Register
+    </button>
+    </form>
+</div>

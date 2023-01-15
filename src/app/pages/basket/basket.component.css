@@ -11,12 +11,12 @@
 }
 
 .basket{
-    width: 50%;
-    min-width: 700px;
+    width: 95%;
+    max-width: 1000px;
 }
 
 section{
-    padding: 30px;
+    padding: 10px;
     margin-top: 30px;
     background-color: rgb(129, 129, 255);
 }
@@ -29,16 +29,16 @@ section{
 
 .basket-entry {
     display: grid;
-    width: 90%;
-    grid-template-columns: 40% 20% 20% 10% 10%;
+    width: 100%;
+    grid-template-columns: minmax(150px, 60%) minmax(80px, 10%)  minmax(50px, 10%) minmax(50px, 10%) minmax(40px, 10%);
     grid-template-rows: 100%;
     row-gap: 2vh;
 }
 
 .history-entry {
     display: grid;
-    width: 90%;
-    grid-template-columns: 20% 70% 10%;
+    width: 100%;
+    grid-template-columns: 100px calc(90% - 150px) 50px;
     grid-template-rows: 100%;
     row-gap: 2vh;
 }

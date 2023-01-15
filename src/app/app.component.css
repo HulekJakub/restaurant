@@ -14,11 +14,13 @@ nav {
     background-color: rgb(92, 92, 255);
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
     justify-items: center;
-    position: fixed;
+    position: sticky;
     top: 0;
-    height: 50px;
+    min-height: 50px;
     z-index: 100;
 }
 
@@ -27,13 +29,14 @@ nav ul {
     margin-inline: auto;
     padding: 0;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 nav li {
     margin-inline: 2em;
     margin-bottom: 0;
+    padding-block: 10px;
 }
 
 nav a {
@@ -44,4 +47,7 @@ nav a {
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -1,97 +1,93 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .page-wrapper {
-    background-color: rgb(194, 194, 255);
-    width: 100vw;
-    max-width: 100vw;
-    height: fit-content;
-    /* height: 100vh; */
-    padding: 30px;
-    padding-top: 80px;
-    display: grid;
-    grid-template-columns: auto 20vw ;
-    grid-template-rows: auto;
-    column-gap: 1vw;
-    row-gap: 1vh;
-    grid-template-areas:
-    "dishes filter";
-    overflow-x: hidden;
-    overflow-y: hidden;
+  background-color: rgb(194, 194, 255);
+  width: 100vw;
+  max-width: 100vw;
+  /* height: 100vh; */
+  padding: 30px;
+  padding-top: 80px;
+  display: grid;
+  grid-template-columns: auto 20vw;
+  grid-template-rows: auto;
+  column-gap: 1vw;
+  row-gap: 1vh;
+  grid-template-areas: "dishes filter";
 }
 
 app-dish-filter {
-    background-color: rgb(142, 142, 255);
-    padding-left: 1vw;
-    grid-area: filter;
-    position: sticky;
-    top: 10vh;
-    height: 50%;
-    width: 100%;
-    min-height: 500px;
+  background-color: rgb(142, 142, 255);
+  padding-left: 1vw;
+  grid-area: filter;
+  position: sticky;
+  top: 10vh;
+  height: 50%;
+  width: 100%;
+  min-height: 500px;
 }
 
 .dishes {
-    grid-area: dishes;
+  grid-area: dishes;
 }
 
-.basket__little{
-    background-color: red;
+.basket__little {
+  background-color: red;
 }
 
-.basket__full{
-    background-color: green;
+.basket__full {
+  background-color: green;
 }
 
 .dishes-card-wrapper {
-    background-color: rgb(194, 194, 255);
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    gap: 10px;
+  background-color: rgb(194, 194, 255);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 10px;
 
-    width: 90%;
-    margin-inline: auto;
-    margin-top: 10px;
-    padding: 20px;
-    overflow: visible;
-    height: auto;
+  width: 90%;
+  margin-inline: auto;
+  margin-top: 10px;
+  padding: 20px;
+  overflow: visible;
+  height: auto;
 }
 
 h1 {
-    padding: 5px;
-    width: fit-content;
+  padding: 5px;
+  width: fit-content;
 }
 
 .pagination {
-    margin-left: 10vw;
-    margin-bottom: 10vh;;
-    background-color: blue;
+  margin-left: 10vw;
+  margin-bottom: 10vh;
+  background-color: blue;
 }
 
-.dishes {
-    height: 100vh;
-}
 
-@media screen and (max-width: 950px){
-    .page-wrapper {
-
-        display: grid;
-        grid-template-columns: auto ;
-        grid-template-rows: auto auto;
-        column-gap: 1vw;
-        row-gap: 1vh;
-        grid-template-areas:
-        "filter"
-        "dishes";
-    }
-    app-dish-filter {
-        position: static;
-        height: 50%;
-        width: 100%;
-        min-height: 500px;
-        justify-items: center;
-        align-items: center;
-    }
+@media screen and (max-width: 950px) {
+  .page-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    column-gap: 1vw;
+    row-gap: 1vh;
+    grid-template-areas:
+      "filter"
+      "dishes";
+  }
+  app-dish-filter {
+    position: static;
+    height: 50%;
+    width: 90%;
+    min-height: 500px;
+    justify-items: center;
+    align-items: center;
+  }
+  .dishes {
+    width: 90%;
+  }
 }

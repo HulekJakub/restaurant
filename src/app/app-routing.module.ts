@@ -6,6 +6,7 @@ import { BasketComponent } from './pages/basket/basket.component';
 import { NewDishComponent } from './pages/new-dish/new-dish.component';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 import { DishDetailsComponent } from './pages/dish-details/dish-details.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'menu', component: DishesComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'new-dish', component: NewDishComponent },
   { path: 'basket', component: BasketComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 
