@@ -1,0 +1,29 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<div class="icon-wrapper">
+  <div class="icons" *ngIf="changeable || showRating != 0">
+    <div
+      mat-icon-button
+      class="icon"
+      *ngFor="let ratingId of [].constructor(stars()); index as i"
+      (click)="changeRating(i + 1)"
+    >
+      <mat-icon>star</mat-icon>
+    </div>
+    <div
+      mat-icon-button
+      class="icon"
+      *ngFor="let ratingId of [].constructor(borderStars()); index as i"
+      (click)="changeRating(i + stars() + 1)"
+    >
+      <mat-icon>star_border</mat-icon>
+    </div>
+    <p *ngIf="!changeable" class="rating-summary">
+      {{ showRating.toFixed(2) }}/{{ store.ratingGrades }}
+    </p>
+  </div>
+
+  <div *ngIf="!changeable && showRating == 0">Be the first one to rate!</div>
+</div>

@@ -1,0 +1,33 @@
+<div class="page-wrapper">
+  <app-dish-filter></app-dish-filter>
+  <div class="dishes">
+    <h1
+      [ngClass]="{
+        basket__little: ((orderAmount$ | async) ?? 0) < 10,
+        basket__full: ((orderAmount$ | async) ?? 0) >= 10
+      }"
+    >
+      Ordered: {{ (orderAmount$ | async) ?? 0 }}
+    </h1>
+    <div class="dishes-card-wrapper">
+      <app-dish-card
+        *ngFor="
+          let dish of filteredDishes$
+            | async
+            | pagination : itemsPerPage : currentPage
+        "
+        [dish]="dish"
+        [isCheapest]="isDishCheapest(dish)"
+        [isMostExpensive]="isDishMostExpensive(dish)"
+      ></app-dish-card>
+    </div>
+    <app-pagination
+      class="pagination"
+      [itemsPerPage]="itemsPerPage"
+      [currentPage]="currentPage"
+      (currentPageChanged)="handlePageChange($event)"
+      #pagination
+    ></app-pagination>
+  </div>
+  
+</div>

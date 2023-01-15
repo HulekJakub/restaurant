@@ -1,0 +1,18 @@
+.buttons-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-block: 10px;
+}
+
+.buttons-wrapper p {
+    margin-inline: 10px;
+    font-size: 1rem;
+}
+
+.buttons-wrapper button{
+    padding-inline: 4px;
+    padding-block: 2px;
+    font-size: 0.8rem;
+}

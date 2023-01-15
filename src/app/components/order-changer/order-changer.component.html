@@ -1,0 +1,7 @@
+<div class="buttons-wrapper">
+  <button (click)="handleMinusClick($event)" [disabled]="value === 0">-</button>
+  <p #counter>{{ value }}</p>
+  <button (click)="handlePlusClick($event)" [disabled]="value === maxValue">
+    +
+  </button>
+</div>

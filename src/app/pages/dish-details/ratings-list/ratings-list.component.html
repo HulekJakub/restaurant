@@ -1,0 +1,10 @@
+<div class="reviews">
+  <div *ngFor="let r of ratings$ | async" class="review">
+    <div><b>Nickname:</b> {{ r.nickname }}</div>
+    <div><b>Score:</b> {{ r.rating }}/{{ store.ratingGrades }}</div>
+    <div><b>Review:</b> {{ r.review }}</div>
+    <div *ngIf="r.orderDate">
+      <b>Purchase date:</b> {{ r.orderDate | date }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<main class="page-wrapper">
+  <div class="card">
+    <section class="details-wrapper">
+      <h1>{{ dish.name | uppercase }}</h1>
+      <p class="dish-price">{{ dish.price | currency : store.currency }}</p>
+      <p class="cuisine">{{ dish.cuisine | uppercase }}</p>
+      <p class="available">Available: {{ dish.available }}</p>
+      <p class="description">{{ dish.description }}</p>
+      <section class="ingredients">
+        <h3>Ingredients:</h3>
+        <ul>
+          <li *ngFor="let i of dish.ingredients">{{ i }}</li>
+        </ul>
+      </section>
+      <section class="categories">
+        <h3>Categories:</h3>
+        <ul>
+          <li *ngFor="let c of dish.categories">{{ c }}</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Add to basket:</h3>
+        <app-order-changer
+          (valueChanged)="orderAmountChanged($event)"
+          [maxValue]="dish.available"
+          [value]="(reservated$ | async) ?? 0"
+        ></app-order-changer>
+      </section>
+    </section>
+
+    <section *ngIf="dish.photos.length > 0" class="photos">
+      <img
+        *ngFor="let photo of dish.photos"
+        [src]="photo"
+        alt="Could not load a photo"
+      />
+    </section>
+    <section *ngIf="dish.photos?.length == 0" class="photos">
+      <div>No photos</div>
+    </section>
+
+    <section class="reviews"  *ngIf="(ratings$ | async)?.length ?? 0 > 0">
+      <h1>Reviews:</h1>
+      <app-dish-rating [dishId]="dish.id"></app-dish-rating>
+      <app-ratings-list [dishId]="dish.id"></app-ratings-list>
+    </section>
+
+    <section class="add-review">
+      <h2>Add review:</h2>
+      <app-dish-review-form [dishId]="dish.id"></app-dish-review-form>
+    </section>
+  </div>
+</main>

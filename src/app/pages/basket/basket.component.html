@@ -1,0 +1,55 @@
+<main class="page-wrapper">
+  <div class="basket">
+    <section>
+      <h1 *ngIf="basket?.length == 0; else notEmptyBasket">Your basket is empty</h1>
+      <ng-template #notEmptyBasket>
+        <ul>
+          <li class="basket-entry list-header">
+            <span>Name</span>
+            <span>Amount</span>
+            <span>Price</span>
+            <span>Sum</span>
+          </li>
+          <li *ngFor="let entry of basket; index as i" class="basket-entry">
+            <span>{{ entry.name }}</span>
+            <span>{{ entry.amount }}</span>
+            <span>{{
+              entry.price | currency : store.currency
+            }}</span>
+            <span>{{
+              entry.amount * entry.price | currency : store.currency
+            }}</span>
+            <button mat-raised-button type="button" (click)="buy(i)">Buy now</button>
+          </li>
+        </ul>
+        <span>
+          <button mat-raised-button type="button" (click)="buyAll()" [disabled]="basket?.length == 0">
+            Buy all
+          </button>
+          for only {{ sumPriceOfBasket() | currency : store.currency}}
+        </span>
+      </ng-template>
+    </section>
+    <section>
+      <h1 *ngIf="history?.length == 0; else notEmptyHistory">
+        Your orders history is empty
+      </h1>
+      <ng-template #notEmptyHistory>
+        <ul>
+          <li class="history-entry list-header">
+            <span>Date</span>
+            <span>Dishes</span>
+            <span>Sum</span>
+          </li>
+          <li *ngFor="let entry of history" class="history-entry">
+            <span> {{ entry.date | date }}</span>
+            <span>{{ entry.names.join(", ") }}</span>
+            <span>{{
+              entry.price | currency : store.currency
+            }}</span>
+          </li>
+        </ul>
+      </ng-template>
+    </section>
+  </div>
+</main>

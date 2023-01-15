@@ -1,0 +1,21 @@
+.icon-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.icon{
+    margin-inline: 4px;
+    padding-top: 3px;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.rating-summary{
+    margin-left: 5px;
+    padding-top: 3px;
+}

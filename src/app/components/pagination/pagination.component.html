@@ -1,0 +1,7 @@
+<div class="wrapper">
+  <span>
+    <button (click)="changePage(-1)" [disabled]="currentPage == 0">back</button>
+    <span>Page: {{ currentPage }}</span>
+    <button (click)="changePage(1)" [disabled]="lastPage">forward</button>
+  </span>
+</div>

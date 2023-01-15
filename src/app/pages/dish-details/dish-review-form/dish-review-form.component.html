@@ -1,0 +1,53 @@
+<main>
+  <form
+    #reviewForm="ngForm"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="myForm"
+    class="review-form"
+  >
+    <div class="field">
+      <h3>Rating:</h3>
+      <app-dish-rating
+        #ratingComponent
+        (ratingChanged)="changeRating($event)"
+        [changeable]="true"
+      ></app-dish-rating>
+    </div>
+
+    <mat-form-field class="field">
+      <mat-label>Name:</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Review:</mat-label>
+      <textarea
+        matInput
+        formControlName="review"
+        maxlength="500"
+        minlength="50"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Choose date</mat-label>
+      <input
+        matInput
+        [max]="curDate"
+        (dateChange)="dateChanged($event)"
+        [matDatepicker]="datePicker"
+      />
+      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      type="submit"
+      class="submit"
+      [disabled]="!reviewForm.form.valid || this.rating == -1"
+    >
+      Add review
+    </button>
+  </form>
+</main>

@@ -1,0 +1,15 @@
+.reviews {
+    width: 100%;
+    background-color: rgb(100, 100, 255);    
+    padding: 10px;
+    color: rgb(209, 209, 209);
+}
+
+.review {
+    width: 100%;
+    margin-block: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    white-space: normal;
+    word-break: break-all;
+}  

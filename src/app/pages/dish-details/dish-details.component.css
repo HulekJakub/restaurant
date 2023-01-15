@@ -1,0 +1,107 @@
+.page-wrapper {
+  background-color: rgb(194, 194, 255);
+  padding: 30px;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  background-color: rgb(154, 154, 255);
+  width: 60%;
+  min-width: 300px;
+  display: grid;
+  padding: 20px;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 50% 50%;
+  grid-row-gap: 5px;
+  grid-template-areas:
+    "photos details"
+    "photos reviews"
+    "photos review-form";
+}
+
+.details-wrapper {
+  grid-area: details;
+  display: grid;
+  grid-template-rows: 25px 25px auto;
+  grid-template-columns: 50% 50%;
+  grid-row-gap: 1rem;
+  grid-template-areas:
+    "name price"
+    "cuisine available"
+    "description description"
+    "ingredients categories";
+}
+
+.dish-price {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+section p {
+  margin-block: 10px;
+}
+
+.description {
+  margin-block: 10px;
+}
+
+.available {
+  font-weight: bold;
+  margin-block: 10px;
+}
+
+.cuisine {
+  font-weight: bold;
+  margin-block: 10px;
+}
+
+.ingredients {
+  grid-area: ingredients;
+}
+
+.categories {
+  grid-area: categories;
+}
+
+ul {
+  margin-left: 30px;
+}
+
+.photos {
+  grid-area: photos;
+  margin-block: 40px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.photos img {
+  width: 90%;
+  max-height: 500px;
+  object-fit: cover;
+  min-width: 200px;
+  min-height: 200px;
+  margin-bottom: 20px;
+}
+
+.reviews {
+  grid-area: reviews;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.reviews app-ratings-list {
+  width: 100%;
+}

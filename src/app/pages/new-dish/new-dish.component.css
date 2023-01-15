@@ -1,0 +1,61 @@
+.page-wrapper {
+    background-color: rgb(194, 194, 255);
+    padding: 30px;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.form-wrapper {
+    background-color: rgb(129, 129, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+
+    min-width: 500px;
+    margin-inline: auto;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.cuisines-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-items: center;
+}
+
+.radio-btn-wrapper {
+    margin: 3px;
+}
+
+.radio-btn-wrapper label {
+    margin: 3px;
+}
+
+.categories-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-items: center;
+}
+
+.checkbox-wrapper {
+    margin: 3px;
+}
+
+.checkbox-wrapper label {
+    margin: 3px;
+}
+
+.bold {
+    font-weight: bold;
+}

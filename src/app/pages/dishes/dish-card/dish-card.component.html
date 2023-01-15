@@ -1,0 +1,31 @@
+<div
+  (click)="onClick(dish)"
+  class="dish-wrapper"
+  [ngClass]="{
+    isMostExpensive: isMostExpensive,
+    isCheapest: isCheapest,
+    isSoldOut: dish.available == 0,
+    isSmallNumberOfItems: dish.available <= 5 && dish.available > 0
+  }"
+>
+  <div class="description-wrapper">
+    <h1>{{ dish.name | uppercase }}</h1>
+    <h2 class="dish-price">{{ dish.price | currency : store.currency }}</h2>
+    <h3>{{ dish.cuisine | uppercase }}</h3>
+    <p>Available: {{ dish.available }}</p>
+    <p>{{ dish.description }}</p>
+  </div>
+  <div class="image-wrapper">
+    <img [src]="dish.photos[0]" alt="" />
+  </div>
+  <app-order-changer
+    class="app-order-changer"
+    (valueChanged)="orderAmountChanged($event)"
+    [maxValue]="dish.available"
+    [value]="(reservated | async) ?? 0"
+  ></app-order-changer>
+  <app-dish-rating
+    [dishId]="dish.id"
+  ></app-dish-rating>
+  <button mat-raised-button class="delete" (click)="delete($event)">X</button>
+</div>
