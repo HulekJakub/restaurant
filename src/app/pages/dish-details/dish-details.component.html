@@ -21,7 +21,7 @@
       <section>
         <h3>Add to basket:</h3>
         <app-order-changer
-          (valueChanged)="orderAmountChanged($event)"
+        [dishId]="dish.id"
           [maxValue]="dish.available"
           [value]="(reservated$ | async) ?? 0"
         ></app-order-changer>
@@ -45,9 +45,26 @@
       <app-ratings-list [dishId]="dish.id"></app-ratings-list>
     </section>
 
-    <section class="add-review">
+    <section class="add-review" *ngIf="userBought && !userReviewed && !userBanned;else banned">
       <h2>Add review:</h2>
       <app-dish-review-form [dishId]="dish.id"></app-dish-review-form>
     </section>
+
+    <ng-template #banned>
+      <section class="add-review" *ngIf="userBanned;else needBuy">
+        <h2>You were banned</h2>
+      </section>
+    </ng-template>
+    <ng-template #needBuy>
+      <section class="add-review" *ngIf="!userBought;else alreadyReviewed">
+        <h2>You have to buy a dish to review it</h2>
+      </section>
+    </ng-template>
+    <ng-template #alreadyReviewed>
+      <section class="add-review" *ngIf="userReviewed">
+        <h2>You have already reviewed this dish</h2>
+      </section>
+    </ng-template>
+
   </div>
 </main>

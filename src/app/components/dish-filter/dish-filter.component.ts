@@ -24,11 +24,11 @@ export class DishFilterComponent {
   formValueSubscription: Subscription;
   pricesRangeSubscription: Subscription;
 
-  maxPrice?: number = undefined;
-  minPrice?: number = undefined;
+  maxPrice?: number = 100;
+  minPrice?: number = 0;
 
-  maxRating?: number = undefined;
-  minRating?: number = undefined;
+  maxRating?: number = 5;
+  minRating?: number = 0;
 
   categoriesArray(): FormArray {
     return this.form.controls['categories'] as FormArray;
@@ -41,10 +41,8 @@ export class DishFilterComponent {
   ngOnInit() {
     this.form = this.fb.group({
       name: '',
-      cuisines: new FormArray(this.cuisines.map((x) => new FormControl(false))),
-      categories: new FormArray(
-        this.categories.map((x) => new FormControl(false))
-      ),
+      cuisines: [{ value: [], disabled: false }, ],
+      categories: [{ value: [], disabled: false }, ],
       minRating: '',
       maxRating: this.ratingGrades,
       minPrice: '',
@@ -52,7 +50,7 @@ export class DishFilterComponent {
     });
 
     this.pricesRangeSubscription = this.store.getStream('dishes')
-      ?.subscribe((dishes: Dish[]) => {
+      .subscribe((dishes: Dish[]) => {
         let newMaxPrice = dishes
           .map((dish: Dish) => dish.price)
           .reduce(
@@ -84,19 +82,10 @@ export class DishFilterComponent {
   }
 
   generateDishFilter(value: any): DishFilter | undefined {
-    const selectedCategories = this.form.value.categories
-      .map((checked: boolean, i: number) =>
-        checked ? this.categories[i] : null
-      )
-      .filter((v: any | null) => v !== null);
-    const selectedCuisines = this.form.value.cuisines
-      .map((checked: boolean, i: number) => (checked ? this.cuisines[i] : null))
-      .filter((v: any | null) => v !== null);
-
     const newFilter = {
       name: this.form.value.name.trim(),
-      cuisines: selectedCuisines,
-      categories: selectedCategories,
+      cuisines: this.form.value.cuisines,
+      categories: this.form.value.categories,
       minRating: parseFloat(this.form.value.minRating),
       maxRating: parseFloat(this.form.value.maxRating),
       minPrice: parseFloat(this.form.value.minPrice),

@@ -5,3 +5,10 @@
 .form-wrapper {
     min-width: 200px;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

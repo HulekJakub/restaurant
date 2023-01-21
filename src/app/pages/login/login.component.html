@@ -1,0 +1,17 @@
+<div class="page-wrapper">
+    <form class="form" #loginForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+        <mat-form-field class="field">
+            <mat-label class="bold">Email:</mat-label>
+            <input matInput formControlName="email" />
+        </mat-form-field>
+    
+        <mat-form-field class="field">
+            <mat-label class="bold">Password:</mat-label>
+            <input matInput formControlName="password" type="password" />
+        </mat-form-field>
+    
+        <button class="field" mat-raised-button type="submit" [disabled]="!loginForm.form.valid">
+            Login
+        </button>
+        </form>
+    </div>

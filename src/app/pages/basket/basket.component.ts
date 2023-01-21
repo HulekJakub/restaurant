@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { History, Order } from 'src/app/store/datatypes';
+import { Dish, DishOrder,HistoryOrder } from 'src/app/store/datatypes';
 import { StoreService } from 'src/app/store/store.service';
 import { map, Subscription } from 'rxjs';
 
@@ -31,7 +31,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.basketSubscription = this.store.getStream('order').pipe(
       map(orders =>
-        orders.map((order: Order) => {
+        orders.map((order: DishOrder) => {
           return {
             name: order.name,
             price: order.price,
@@ -45,12 +45,12 @@ export class BasketComponent implements OnInit, OnDestroy {
 
     this.historySubscription = this.store.getStream('history').pipe(
       map(histories =>
-        histories.map((history: History) => {
+        histories.map((history: HistoryOrder) => {
           return {
             date: history.date,
-            names: history.dishes.map((dish) => dish.name),
-            price: history.dishes.reduce(
-              (acc, cur) => acc + cur.price * cur.amount,
+            names: history.orders.map((dishOrder: DishOrder) => dishOrder.name),
+            price: history.orders.reduce(
+              (acc: number, cur: DishOrder) => acc + cur.price * cur.amount,
               0
             ),
           };

@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Dish, Order } from 'src/app/store/datatypes';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Dish, DishOrder, HistoryOrder } from 'src/app/store/datatypes';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { StoreService } from 'src/app/store/store.service';
-import {
-  Observable,
-  Subscription,
-  combineLatest,
-  map,
-} from 'rxjs';
+import { Observable, Subscription, combineLatest, map, filter } from 'rxjs';
 import { DishRating, Rating } from 'src/app/store/datatypes';
 
 @Component({
@@ -15,14 +10,20 @@ import { DishRating, Rating } from 'src/app/store/datatypes';
   templateUrl: './dish-details.component.html',
   styleUrls: ['./dish-details.component.css'],
 })
-export class DishDetailsComponent implements OnInit {
-  public dishId: number;
-  public dish: Dish;
+export class DishDetailsComponent implements OnInit, OnDestroy {
   reservated$: Observable<number>;
   public dishId$: Observable<number>;
+  public dishId: number;
+  public dish: Dish;
   public dishSub: Subscription;
   rating?: DishRating;
   ratings$: Observable<Rating[]>;
+
+  userReviewed?: boolean;
+  userBought?: boolean;
+  userBoughtSubscription: Subscription;
+  userBanned: boolean;
+  userBannedSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, public store: StoreService) {}
 
@@ -31,10 +32,8 @@ export class DishDetailsComponent implements OnInit {
       map((dishId$: ParamMap) => parseInt(dishId$.get('id') || '{}'))
     );
 
-    this.dishSub = combineLatest([
-      this.store.getStream('dishes'),
-      this.dishId$,
-    ]).pipe(
+    this.dishSub = combineLatest([this.store.getStream('dishes'), this.dishId$])
+      .pipe(
         map(([dishes, dishId]) =>
           dishes.filter((dish: Dish) => dish.id === dishId)
         ),
@@ -47,9 +46,13 @@ export class DishDetailsComponent implements OnInit {
     this.ratings$ = combineLatest([
       this.store.getStream('ratings'),
       this.dishId$,
+      this.store.getStream('userId').pipe(filter(userId => userId != undefined))
     ]).pipe(
-      map(([ratings, dishId]) =>
-        ratings.filter((rating: Rating) => rating.dishId === dishId)
+      map(([ratings, dishId, userId]) =>
+        { const filteredRatings = ratings.filter((rating: Rating) => rating.dishId === dishId)
+          this.userReviewed = !!filteredRatings.find((rating: Rating) => rating.userId === userId)
+          return filteredRatings;
+        }
       )
     );
 
@@ -57,17 +60,34 @@ export class DishDetailsComponent implements OnInit {
       .getStream('order')
       .pipe(
         map(
-          (order: Order[]) =>
+          (order: DishOrder[]) =>
             order.find((r) => r.dishId === this.dish.id)?.amount ?? 0
         )
       );
+
+    this.userBoughtSubscription = combineLatest([
+      this.store.getStream('history'),
+      this.dishId$,
+    ])
+      .pipe(
+        map(([history, dishId]) => {
+          return !!history.find((historyOrder: HistoryOrder) =>
+            historyOrder.orders.find((order) => order.dishId === dishId)
+          );
+        })
+      )
+      .subscribe((bought) => {
+        this.userBought = bought;
+      });
+
+    this.userBannedSubscription = this.store.getStream('userBanned').subscribe(banned => {
+      this.userBanned = banned;
+    })
   }
 
   ngOnDestroy() {
     this.dishSub?.unsubscribe();
-  }
-
-  public orderAmountChanged(event: number) {
-    this.store.updateOrder(this.dish.id, event.valueOf());
+    this.userBoughtSubscription.unsubscribe();
+    this.userBannedSubscription.unsubscribe();
   }
 }

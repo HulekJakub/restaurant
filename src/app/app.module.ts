@@ -35,6 +35,13 @@ import { MatListModule } from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { RegisterComponent } from './pages/register/register.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginComponent } from './pages/login/login.component'
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { UserComponent } from './pages/user/user.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { ManageDishesComponent } from './pages/manage-dishes/manage-dishes.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +63,10 @@ import { RegisterComponent } from './pages/register/register.component';
     RatingsListComponent,
     PaginationComponent,
     RegisterComponent,
+    LoginComponent,
+    UserComponent,
+    AdminComponent,
+    ManageDishesComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,12 +86,18 @@ import { RegisterComponent } from './pages/register/register.component';
     MatListModule,
     MatSelectModule,
     MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent],
 })

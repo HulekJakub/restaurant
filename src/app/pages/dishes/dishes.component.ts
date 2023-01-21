@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subscription, combineLatest, map } from 'rxjs';
-import { Dish, Order } from 'src/app/store/datatypes';
+import { Observable, Subscription, combineLatest, map, BehaviorSubject } from 'rxjs';
+import { Dish, DishOrder } from 'src/app/store/datatypes';
 import { StoreService } from 'src/app/store/store.service';
 import { PaginationComponent } from 'src/app/components/pagination/pagination.component';
 import { FilterDishesPipe } from 'src/app/pipes/filter-dishes/filter-dishes.pipe';
@@ -21,8 +21,10 @@ export class DishesComponent implements OnInit, OnDestroy {
   public filteredDishes$: Observable<Dish[]>;
   public orderAmount$: Observable<number>;
   public itemsPerPage: number = 6;
+  public itemsPerPage$: BehaviorSubject<number> = new BehaviorSubject(6); 
   public currentPage: number = 0;
   private filterPipe = new FilterDishesPipe();
+
 
   ngOnInit() {
     this.changeItemsPerPage(window.innerWidth);
@@ -42,7 +44,7 @@ export class DishesComponent implements OnInit, OnDestroy {
     this.orderAmount$ = this.store
       .getStream('order')
       .pipe(
-        map((order: Order[]) =>
+        map((order: DishOrder[]) =>
           order.reduce((acc, cur) => acc + cur.amount, 0)
         )
       );
@@ -89,11 +91,12 @@ export class DishesComponent implements OnInit, OnDestroy {
 
   changeItemsPerPage(width: number) {
     if( width >= 2100) {
-      this.itemsPerPage = 6
-    } else if ( width >= 1450) {
-      this.itemsPerPage = 4;
+      this.itemsPerPage = 12
+    } else if ( width >= 1420) {
+      this.itemsPerPage = 8;
     } else {
-      this.itemsPerPage = 2;
+      this.itemsPerPage = 4;
     }
+    this.itemsPerPage$.next(this.itemsPerPage);
   }
 }

@@ -6,7 +6,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { StoreService } from 'src/app/store/store.service';
 
 @Component({
@@ -15,13 +15,15 @@ import { StoreService } from 'src/app/store/store.service';
   styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent implements OnInit, OnDestroy {
-  @Input() itemsPerPage: number;
+  @Input() itemsPerPage$: Observable<number>;
   @Input() currentPage: number = 0;
   @Output() currentPageChanged = new EventEmitter<number>();
 
   public lastPage: boolean = false;
   private dishesLength: number;
   private dishesLengthSubscription: Subscription;
+  public itemsPerPage: number;
+  private itemsPerPageSubscription: Subscription;
 
   constructor(private store: StoreService) {}
 
@@ -50,10 +52,16 @@ export class PaginationComponent implements OnInit, OnDestroy {
       this.dishesLength = dishes.length;
       this.updatePagination();
     })
+
+    this.itemsPerPageSubscription = this.itemsPerPage$.subscribe((n) => {
+      this.itemsPerPage = n;
+      this.updatePagination();
+    })
   }
 
   public ngOnDestroy() {
     this.dishesLengthSubscription.unsubscribe();
+    this.itemsPerPageSubscription.unsubscribe();
   }
 }
 

@@ -1,0 +1,19 @@
+<div class="page-wrapper">
+  <section class="users">
+    <button mat-raised-button type="button" (click)=saveChanges()>Save</button>
+    <div class="user" *ngFor="let user of users; index as i">
+      <mat-form-field subscriptSizing="dynamic" class="user__field" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput readonly [value]="user.email">
+      </mat-form-field>
+
+      <mat-form-field subscriptSizing="dynamic" class="user__field" appearance="fill">
+        <mat-label>Roles</mat-label>
+        <mat-select [(value)]="user.roles" (selectionChange)="roleChanged(user)" multiple>
+          <mat-option *ngFor="let role of store.possibleRoles" [value]='role'>{{ role }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button type="button" (click)=toggleBan(user)>{{ !!user.banned ? 'Unban' : 'Ban'}}</button>
+    </div>
+  </section>
+</div>

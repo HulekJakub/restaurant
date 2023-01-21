@@ -1,0 +1,19 @@
+<div class="page-wrapper">
+    <section class="dishes">
+    <button class="dish__field" mat-raised-button type="button" (click)=addNewDish()>Add new dish</button>
+    <div class="dish" *ngFor="let dish of dishes; index as i">
+        <mat-form-field subscriptSizing="dynamic" class="dish__field" appearance="fill">
+          <mat-label>Id</mat-label>
+          <input matInput readonly [value]="dish.id">
+        </mat-form-field>
+  
+        <mat-form-field subscriptSizing="dynamic" class="dish__field" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput readonly [value]="dish.name">
+          </mat-form-field>
+        <button class="dish__field" mat-raised-button type="button" (click)=deleteDish(dish)>Delete</button>
+        <button class="dish__field" mat-raised-button type="button" (click)=modifyDish(dish)>Modify</button>
+    </div>
+    </section>
+  </div>
+  

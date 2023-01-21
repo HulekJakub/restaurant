@@ -30,7 +30,7 @@ export class DishService {
       })
       .pipe(
         map((response: HttpResponse<any>) =>
-          response.status === 200 ? true : false
+          response.status === 200
         )
       );
   }

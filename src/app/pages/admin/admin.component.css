@@ -10,7 +10,7 @@
     width: 100%;
 }
 
-.form {
+.users {
     background-color: rgb(129, 129, 255);
     max-width: 80%;
     width: 800px;
@@ -21,9 +21,18 @@
     padding: 20px;
 }
 
-.field {
-    width: 90%;
-    padding-bottom: 0px;
+.user {
+    background-color: rgb(96, 96, 255);
+    border: 1px solid black;
+    padding: 10px;
+    margin-block: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-
+.user__field {
+    padding-inline: 15px;
+}

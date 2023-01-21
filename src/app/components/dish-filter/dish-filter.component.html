@@ -1,47 +1,32 @@
 <div class="form-wrapper">
   <h1>Set filters</h1>
   <form #filterDishForm="ngForm" [formGroup]="form">
-    <label for="name">name:</label>
-    <input id="name" formControlName="name" />
-    <p>cuisines:</p>
-    <div class="categories-wrapper" formArrayName="cuisines">
-      <div
-        class="checkbox-wrapper"
-        *ngFor="let cus of cuisinesArray().controls; index as i"
-      >
-        <input
-          type="checkbox"
-          id="cuisines{{ i }}"
-          name="cuisines"
-          formControlName="{{ i }}"
-        />
-        <label for="cuisines{{ i }}">{{ cuisines[i] }}</label>
-      </div>
-    </div>
-    <p>categories:</p>
-    <div class="categories-wrapper" formArrayName="categories">
-      <div
-        class="checkbox-wrapper"
-        *ngFor="let cat of categoriesArray().controls; index as i"
-      >
-        <input
-          type="checkbox"
-          id="categories{{ i }}"
-          name="categories"
-          formControlName="{{ i }}"
-        />
-        <label for="categories{{ i }}">{{ categories[i] }}</label>
-      </div>
-    </div>
+    <mat-form-field>
+      <mat-label class="bold">Name:</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cuisines</mat-label>
+      <mat-select formControlName="cuisines" multiple>
+        <mat-option *ngFor="let cuisine of cuisines" [value]="cuisine">{{ cuisine }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Categories</mat-label>
+      <mat-select formControlName="categories" multiple>
+        <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <label for="rating">Rating range:</label>
-    <br />
-    <mat-slider discrete [min]="0" [max]="ratingGrades" step="0.01" id="rating">
+    <mat-slider discrete [min]="0" [max]="ratingGrades" step="0.1" id="rating">
       <input matSliderStartThumb formControlName="minRating" />
       <input matSliderEndThumb formControlName="maxRating" />
     </mat-slider>
-    <br />
+    
     <label for="price">Price range:</label>
-    <br />
     <mat-slider
       discrete
       [min]="minPrice"

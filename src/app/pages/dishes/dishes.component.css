@@ -67,7 +67,7 @@ h1 {
 }
 
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1200px) {
   .page-wrapper {
     width: 100%;
     display: grid;

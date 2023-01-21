@@ -11,6 +11,7 @@ export interface Dish {
 }
 
 export interface Rating {
+  userId: number;
   dishId: number;
   rating: number;
   nickname: string;
@@ -34,15 +35,34 @@ export interface DishRating {
   numberOfRatings: number;
 }
 
-export interface Order{
+export interface DishOrder{
   dishId: number;
   name: string;
   amount: number;
   price: number;
 }
 
-export interface History {
-  id: number;
+export interface HistoryOrder {
   date: Date;
-  dishes: Order[];
+  orders: DishOrder[];
+}
+
+export interface UserData {
+  id: number,
+  email: string;
+  history: HistoryOrder[];
+  order: DishOrder[];
+  banned: boolean;
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export interface User {
+  id: number;
+  email: string;
+  roles: string[]
+  banned: boolean;
 }

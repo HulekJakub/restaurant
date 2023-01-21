@@ -17,7 +17,7 @@
           >Menu</a
         >
       </li>
-      <li>
+      <li *ngIf="userRoles.includes('USER')">
         <a
           routerLink="/basket"
           routerLinkActive="active"
@@ -25,20 +25,46 @@
           >Basket</a
         >
       </li>
-      <li>
+      <li *ngIf="userRoles.includes('ADMIN') || userRoles.includes('MANAGER')">
         <a
-          routerLink="/new-dish"
+          routerLink="/manageDishes"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
-          >New dish</a
+          >Manage dishes</a
         >
       </li>
-      <li>
+      <li *ngIf="!userLogged">
         <a
           routerLink="/register"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           >Register</a
+        >
+      </li>
+      <li *ngIf="!userLogged">
+        <a
+          routerLink="/login"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          >Login</a
+        >
+      </li>
+      <li *ngIf="userRoles.includes('ADMIN')">
+        <a
+          routerLink="/admin"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          >Admin</a
+        >
+      </li>
+      <li *ngIf="userLogged">
+        <a style="cursor: default;"
+          >{{ userName }}</a
+        >
+      </li>
+      <li *ngIf="userLogged">
+        <a (click)="logout()"
+          >Logout</a
         >
       </li>
     </ul>

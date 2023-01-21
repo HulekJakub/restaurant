@@ -1,5 +1,5 @@
 <main class="page-wrapper">
-  <div class="form-wrapper">
+  <div class="form-wrapper" *ngIf="dishChecked">
     <h1>Add new dish</h1>
     <form #dishForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="myForm">
       <mat-form-field>
@@ -22,13 +22,12 @@
       </mat-form-field>
       <mat-divider></mat-divider>
 
-      <mat-selection-list #asd formControlName="categories" >
-        <mat-label class="bold">Categories:</mat-label>
-        <mat-list-option *ngFor="let category of categories" [value]="category">
-          {{ category }}
-        </mat-list-option>
-      </mat-selection-list>
-      <mat-divider></mat-divider>
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-select formControlName="categories" multiple>
+          <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label class="bold">Ingredients (comma separated):</mat-label>

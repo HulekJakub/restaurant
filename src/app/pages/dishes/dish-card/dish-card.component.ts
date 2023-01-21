@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Dish, Order } from 'src/app/store/datatypes';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Dish, DishOrder } from 'src/app/store/datatypes';
 import { StoreService } from 'src/app/store/store.service';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dish-card',
   templateUrl: './dish-card.component.html',
   styleUrls: ['./dish-card.component.css'],
 })
-export class DishCardComponent implements OnInit {
+export class DishCardComponent implements OnInit, OnDestroy {
   rating: number | null = null;
 
   @Input() dish: Dish;
@@ -17,30 +17,39 @@ export class DishCardComponent implements OnInit {
   @Input() isCheapest: boolean = false;
 
   reservated?: Observable<number>;
-  constructor(public store: StoreService, private router: Router) {}
 
-  public orderAmountChanged(event: number) {
-    this.store.updateOrder(this.dish.id, event.valueOf());
-  }
+  userRolesSubscription: Subscription;
+  userRoles: string[] = [];
+
+  constructor(public store: StoreService, private router: Router) {}
 
   ngOnInit() {
     this.reservated = this.store
       .getStream('order')
       .pipe(
         map(
-          (orders: Order[]) =>
+          (orders: DishOrder[]) =>
             orders.find((order) => order.dishId === this.dish.id)?.amount ?? 0
         )
       );
+
+    this.userRolesSubscription = this.store
+      .getStream('userRoles')
+      .subscribe((roles) => {
+        this.userRoles = roles;
+      });
   }
 
-  delete(event: Event) {
-    event.stopPropagation();
-    this.store.updateOrder(this.dish.id, 0);
-    this.store.deleteDish(this.dish.id);
+  ngOnDestroy() {
+    this.userRolesSubscription.unsubscribe();
   }
+
 
   public onClick(dish: Dish) {
-    this.router.navigate(['/menu', dish.id]);
+    if(!this.userRoles.includes('USER')) {
+     this.router.navigate(['/login']);
+     return;
+    }
+    this.router.navigate(['/dish', dish.id]);
   }
 }
