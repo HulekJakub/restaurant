@@ -21,6 +21,7 @@
       <section>
         <h3>Add to basket:</h3>
         <app-order-changer
+        [disabled]="!userRoles.includes('USER')"
         [dishId]="dish.id"
           [maxValue]="dish.available"
           [value]="(reservated$ | async) ?? 0"

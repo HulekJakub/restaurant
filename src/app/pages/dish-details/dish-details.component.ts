@@ -24,6 +24,9 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
   userBoughtSubscription: Subscription;
   userBanned: boolean;
   userBannedSubscription: Subscription;
+      
+  userRolesSubscription: Subscription;
+  userRoles: string[] = [];
 
   constructor(private route: ActivatedRoute, public store: StoreService) {}
 
@@ -83,6 +86,12 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
     this.userBannedSubscription = this.store.getStream('userBanned').subscribe(banned => {
       this.userBanned = banned;
     })
+
+    this.userRolesSubscription = this.store
+    .getStream('userRoles')
+    .subscribe((roles) => {
+      this.userRoles = roles;
+    });
   }
 
   ngOnDestroy() {

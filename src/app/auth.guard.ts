@@ -56,6 +56,8 @@ export class AuthGuard
 
   async checkUser(route: ActivatedRouteSnapshot, url: any): Promise<boolean> {
     const logged = await firstValueFrom(this.store.getStream('userLogged'));
+    console.log(logged);
+    
     if (logged) {
       if (!route.data['roles'] || route.data['roles'].length === 0) {
         return true;

@@ -46,7 +46,7 @@ export class DishCardComponent implements OnInit, OnDestroy {
 
 
   public onClick(dish: Dish) {
-    if(!this.userRoles.includes('USER')) {
+    if(!this.userRoles) {
      this.router.navigate(['/login']);
      return;
     }
